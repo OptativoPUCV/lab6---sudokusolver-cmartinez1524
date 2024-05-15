@@ -58,7 +58,7 @@ List* get_adj_nodes(Node* n) {
                     Node* newNode = copy(n);
                     newNode->sudo[i][j] = num;
                     if (is_valid(newNode)) {
-                        addToList(list, newNode);
+                        pushBack(list, newNode); // Usamos pushBack para agregar al final de la lista
                     } else {
                         free(newNode);
                     }
@@ -69,6 +69,7 @@ List* get_adj_nodes(Node* n) {
     }
     return list;
 }
+
 
 
 int is_final(Node* n){
