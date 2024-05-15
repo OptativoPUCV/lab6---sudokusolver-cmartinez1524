@@ -43,10 +43,31 @@ void print_node(Node* n){
     printf("\n");
 }
 
-int is_valid(Node* n){
+int is_valid(Node *n) {
+    // Arreglos para marcar números en filas, columnas y submatrices
+    int rowCheck[9][10] = {0};
+    int colCheck[9][10] = {0};
+    int subgridCheck[3][3][10] = {0};
 
-    return 1;
+    // Verificar filas y columnas
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            int num = n->sudo[i][j];
+            if (num == 0) continue; // Ignorar celdas vacías
+            if (rowCheck[i][num] || colCheck[j][num]) return 0; // Número repetido en fila o columna
+            rowCheck[i][num] = 1;
+            colCheck[j][num] = 1;
+
+            // Verificar submatrices 3x3
+            int subgridRow = i / 3;
+            int subgridCol = j / 3;
+            if (subgridCheck[subgridRow][subgridCol][num]) return 0; // Número repetido en submatriz
+            subgridCheck[subgridRow][subgridCol][num] = 1;
+        }
+    }
+    return 1; // Estado válido
 }
+
 
 
 List* get_adj_nodes(Node* n) {
