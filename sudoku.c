@@ -44,28 +44,27 @@ void print_node(Node* n){
 }
 
 int is_valid(Node *n) {
-    // Arreglos para marcar números en filas, columnas y submatrices
+    
     int rowCheck[9][10] = {0};
     int colCheck[9][10] = {0};
     int subgridCheck[3][3][10] = {0};
 
-    // Verificar filas y columnas
+ 
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
             int num = n->sudo[i][j];
-            if (num == 0) continue; // Ignorar celdas vacías
-            if (rowCheck[i][num] || colCheck[j][num]) return 0; // Número repetido en fila o columna
+            if (num == 0) continue; 
+            if (rowCheck[i][num] || colCheck[j][num]) return 0; 
             rowCheck[i][num] = 1;
             colCheck[j][num] = 1;
 
-            // Verificar submatrices 3x3
             int subgridRow = i / 3;
             int subgridCol = j / 3;
-            if (subgridCheck[subgridRow][subgridCol][num]) return 0; // Número repetido en submatriz
+            if (subgridCheck[subgridRow][subgridCol][num]) return 0;
             subgridCheck[subgridRow][subgridCol][num] = 1;
         }
     }
-    return 1; // Estado válido
+    return 1; 
 }
 
 
@@ -79,7 +78,7 @@ List* get_adj_nodes(Node* n) {
                     Node* newNode = copy(n);
                     newNode->sudo[i][j] = num;
                     if (is_valid(newNode)) {
-                        pushBack(list, newNode); // Usamos pushBack para agregar al final de la lista
+                        pushBack(list, newNode);
                     } else {
                         free(newNode);
                     }
@@ -97,11 +96,11 @@ int is_final(Node *n) {
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
             if (n->sudo[i][j] == 0) {
-                return 0; // Si encuentra al menos una celda vacía, el nodo no es final
+                return 0;
             }
         }
     }
-    return 1; // Si no encuentra ninguna celda vacía, el nodo es final
+    return 1;
 }
 
 
