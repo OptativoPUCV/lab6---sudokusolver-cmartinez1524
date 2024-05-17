@@ -110,13 +110,12 @@ Node* DFS(Node* initial, int* cont) {
     Stack* S = createStack(); // Crear una pila para DFS
     push(S, initial); // Insertar el nodo inicial en la pila
 
-    while (!isEmpty(S)) {
+    while (top(S) != NULL) { // Mientras el stack no esté vacío
         Node* current = top(S); // Obtener el nodo del tope de la pila
         pop(S); // Remover el nodo de la pila
         (*cont)++; // Incrementar el contador
 
         if (is_final(current)) {
-
             return current; // Retornar el nodo si es un estado final
         }
 
@@ -126,11 +125,10 @@ Node* DFS(Node* initial, int* cont) {
             push(S, adjNode); // Insertar cada nodo adyacente en la pila
             adjNode = next(adjNodes);
         }
-        
-        free(current); // Liberar la memoria usada por el nodo actual
+        freeList(adjNodes); // Liberar la lista de nodos adyacentes
+        // No liberamos `current` ya que no se desea usar `free`
     }
 
-    
     return NULL; // Retornar NULL si no se encontró un estado final
 }
 
