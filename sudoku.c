@@ -104,10 +104,35 @@ int is_final(Node *n) {
 }
 
 
-Node* DFS(Node* initial, int* cont){
-  return NULL;
-}
+Node* DFS(Node* initial, int* cont) {
+    if (!initial) return NULL;
 
+    Stack* S = createStack(); // Crear una pila para DFS
+    push(S, initial); // Insertar el nodo inicial en la pila
+
+    while (!isEmpty(S)) {
+        Node* current = top(S); // Obtener el nodo del tope de la pila
+        pop(S); // Remover el nodo de la pila
+        (*cont)++; // Incrementar el contador
+
+        if (is_final(current)) {
+            freeStack(S);
+            return current; // Retornar el nodo si es un estado final
+        }
+
+        List* adjNodes = get_adj_nodes(current); // Obtener los nodos adyacentes
+        Node* adjNode = first(adjNodes);
+        while (adjNode != NULL) {
+            push(S, adjNode); // Insertar cada nodo adyacente en la pila
+            adjNode = next(adjNodes);
+        }
+        freeList(adjNodes); // Liberar la lista de nodos adyacentes
+        free(current); // Liberar la memoria usada por el nodo actual
+    }
+
+    freeStack(S); // Liberar la pila si no se encontró una solución
+    return NULL; // Retornar NULL si no se encontró un estado final
+}
 
 
 /*
