@@ -125,7 +125,7 @@ Node* DFS(Node* initial, int* cont) {
             push(S, adjNode); // Insertar cada nodo adyacente en la pila
             adjNode = next(adjNodes);
         }
-        freeList(adjNodes); // Liberar la lista de nodos adyacentes
+        
         // No liberamos `current` ya que no se desea usar `free`
     }
 
