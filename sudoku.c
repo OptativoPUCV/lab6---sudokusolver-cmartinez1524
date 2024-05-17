@@ -116,7 +116,7 @@ Node* DFS(Node* initial, int* cont) {
         (*cont)++; // Incrementar el contador
 
         if (is_final(current)) {
-            freeStack(S);
+
             return current; // Retornar el nodo si es un estado final
         }
 
@@ -126,11 +126,11 @@ Node* DFS(Node* initial, int* cont) {
             push(S, adjNode); // Insertar cada nodo adyacente en la pila
             adjNode = next(adjNodes);
         }
-        freeList(adjNodes); // Liberar la lista de nodos adyacentes
+        
         free(current); // Liberar la memoria usada por el nodo actual
     }
 
-    freeStack(S); // Liberar la pila si no se encontró una solución
+    
     return NULL; // Retornar NULL si no se encontró un estado final
 }
 
